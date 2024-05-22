@@ -13,6 +13,7 @@ class MainActivity : AppCompatActivity() {
     }*/
 
     private val compositeController = CompositeController()
+    private val controller = CombinedController()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,36 +23,55 @@ class MainActivity : AppCompatActivity() {
         // Setup RecyclerView
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
-            adapter = compositeController.adapter
+            adapter = controller.adapter
         }
 
-        // Sample data
-        /*val items = mutableListOf(
-            SimpleItem("Simple Item 1"),
-            SimpleItem("Simple Item 2"),
-            ComplexItem("Text for View 1", "Text for View 2", "Text for View 3", "Text for View 4", androidx.core.R.drawable.ic_call_answer, com.google.android.material.R.drawable.ic_arrow_back_black_24),
-            SimpleItem("Simple Item 3"),
-            ComplexItem2("ComplexItem2 Text 1", "ComplexItem2 Text 2", "ComplexItem2 Text 3", "ComplexItem2 Text 4",
-                com.google.android.material.R.drawable.ic_m3_chip_check,
-                com.airbnb.viewmodeladapter.R.drawable.ic_mtrl_chip_checked_black,
-                showText1 = true, showText3 = false
-            ),
-            ComplexItem2("ComplexItem2 Text 2", "ComplexItem2 Text 3", "ComplexItem2 Text 4", "ComplexItem2 Text 5",
-                com.google.android.material.R.drawable.ic_m3_chip_check,
-                com.airbnb.viewmodeladapter.R.drawable.ic_mtrl_chip_checked_black,
-                showText1 = true, showText3 = true
-            )
-
-        )*/
-
-        val items = listOf(
-            CompositeItem(id = 1, type = 0, text = "Item 1 Text"),
-            CompositeItem(id = 2, type = 1, text = "Item 2 Text", imageRes = com.google.android.material.R.drawable.ic_m3_chip_check),
-            CompositeItem(id = 3, type = 2, text = "Item 3 Text", imageRes = androidx.core.R.drawable.ic_call_answer)
-        )
-
-        // Pass the data to the controller
-        compositeController.setData(items)
+        val sampleData = generateSampleData()
+        controller.setData(sampleData)
     }
+
+    private fun generateSampleData(): List<CombinedItem> {
+        return listOf(
+            CombinedItem(
+                id = 1,
+                topText1 = "Top Text 1",
+                topText2 = "Top Text 2",
+                topImageRes = android.R.drawable.ic_menu_camera,
+                type = 0,
+                middleImageRes = android.R.drawable.ic_menu_gallery,
+                bottomIcon1 = android.R.drawable.ic_menu_call,
+                bottomIcon2 = android.R.drawable.ic_menu_compass,
+                bottomIcon3 = android.R.drawable.ic_menu_agenda,
+                bottomIcon4 = android.R.drawable.ic_menu_manage
+            ),
+            CombinedItem(
+                id = 2,
+                topText1 = "Top Text 1",
+                topText2 = "Top Text 2",
+                topImageRes = android.R.drawable.ic_menu_camera,
+                type = 1,
+                middleText1 = "Middle Text 1",
+                middleText2 = "Middle Text 2",
+                bottomIcon1 = android.R.drawable.ic_menu_call,
+                bottomIcon2 = android.R.drawable.ic_menu_compass,
+                bottomIcon3 = android.R.drawable.ic_menu_agenda,
+                bottomIcon4 = android.R.drawable.ic_menu_manage
+            ),
+            CombinedItem(
+                id = 3,
+                topText1 = "Top Text 1",
+                topText2 = "Top Text 2",
+                topImageRes = android.R.drawable.ic_menu_camera,
+                type = 2,
+                middleText1 = "Middle Text 1",
+                middleImageRes = android.R.drawable.ic_menu_gallery,
+                bottomIcon1 = android.R.drawable.ic_menu_call,
+                bottomIcon2 = android.R.drawable.ic_menu_compass,
+                bottomIcon3 = android.R.drawable.ic_menu_agenda,
+                bottomIcon4 = android.R.drawable.ic_menu_manage
+            )
+        )
+    }
+
 }
 
